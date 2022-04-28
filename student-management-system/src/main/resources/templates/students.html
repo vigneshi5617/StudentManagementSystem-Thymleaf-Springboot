@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Students Management System</title>
+<!-- We are going to use Boostrap Css to format our page -->
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+	integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+	crossorigin="anonymous">
+
+</head>
+<body>
+<!-- Lets create div and add bootstrap css class "contaniner" and wrap all the CSS code in here -->
+
+<nav class="navbar navbar-expand-md bg-dark navbar-dark">
+  <!-- Brand -->
+  <a class="navbar-brand" href="#">Student Management System</a>
+
+  <!-- Toggler/collapsibe Button -->
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <!-- Navbar links -->
+  <div class="collapse navbar-collapse" id="collapsibleNavbar">
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <a class="nav-link" th:href="@{/students}">Student Management</a>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+	<div class="container">
+		<div class="row">
+			<h1>List Students</h1>
+
+		</div>
+		
+		<!-- Add button here to post  -->
+		
+		<div class = "row">
+		<!-- We will add css class here -->
+		<div class = "col-lg-3">
+		
+		<!--  We will add the anchor tag here and this belwo is logic -->
+		<a th:href = "@{/students/new}" class = "btn btn-primary btn-sm mb-3"> Add Student</a>
+		 </div>
+		</div>
+		
+		<!-- Add the Boostrap class in here  -->
+		<table class="table table-striped table-bordered">
+			<thead class="table-dark">
+				<tr>
+					<th>Student First Name</th>
+					<th>Student Last Name</th>
+					<th>Student email</th>
+					<th>Actions</th>
+
+				</tr>
+
+			</thead>
+			
+			<!-- We will have to display the table row dynamically as the method getAll method returns a List -->
+			
+			<tbody> 
+			<!-- So we will use th:each which is thymleaf attribute to iterate over the list of students and display the results in tbody dynamicallly -->
+			<!-- th:each works like a for each loop --> 
+			<!-- these tags are got from thymleaf url defined above -->
+			<tr th:each ="student : ${students}">
+			
+			<!-- the one we give inside the dollar is Model name , our case it the Student -->
+				<td th:text ="${student.firstName}"></td>
+				<td th:text ="${student.lastName}"></td>
+				<td th:text ="${student.email}"></td>
+				<td>
+					<a th:href ="@{/students/edit/{id}(id=${student.id})}
+					" class ="btn btn-primary"> Update</a>
+					
+					
+					<a th:href = "@{/students/{id}(id=${student.id})}"
+						 class = "btn btn-danger">Delete</a>
+			
+			</tr>
+			
+			
+			</tbody>
+			
+		</table>
+
+
+
+	</div>
+
+</body>
+</html>
